@@ -1,7 +1,6 @@
 """thing 1"""
-import pandas as pd
 import re
-
+import pandas as pd
 def load_artifact_data(excel_filepath):
     """
     Reads artifact data from a specific sheet ('Main Chamber') in an Excel file,
@@ -45,7 +44,15 @@ def extract_journal_dates(journal_text):
     # Hint: Use re.findall with a raw string pattern for MM/DD/YYYY format.
     # Pattern idea: r"\d{2}/\d{2}/\d{4}"
     # Replace 'pass' with your code
-    return re.findall(r"(0?[1-9]|1[012])\/(0?[1-9]|[12][0-9]|3[01])\/\d{4}", journal_text)
+    dates = re.findall(r"\d{2}/\d{2}/\d{4}", journal_text)
+    valid_dates = []
+    for date in dates:
+        try:
+            pd.to_datetime(date, format='%m/%d/%Y', errors='raise')
+            valid_dates.append(date)
+        except ValueError:
+            continue
+    return valid_dates
     # return the list of found dates
 
 def extract_secret_codes(journal_text):
