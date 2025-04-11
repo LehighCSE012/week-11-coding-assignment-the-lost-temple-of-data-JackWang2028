@@ -44,9 +44,9 @@ def extract_journal_dates(journal_text):
     # Hint: Use re.findall with a raw string pattern for MM/DD/YYYY format.
     # Pattern idea: r"\d{2}/\d{2}/\d{4}"
     # Replace 'pass' with your code
-    dates = re.findall(r"\d{2}/\d{2}/\d{4}", journal_text)
+    datelist = re.findall(r"\d{2}/\d{2}/\d{4}", journal_text)
     valid_dates = []
-    for date in dates:
+    for date in datelist:
         try:
             pd.to_datetime(date, format='%m/%d/%Y', errors='raise')
             valid_dates.append(date)
